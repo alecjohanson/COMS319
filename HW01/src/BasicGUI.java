@@ -20,11 +20,11 @@ import javax.swing.JTextField;
 public class BasicGUI {
 
 	public static void main(String[] args) {
-		
+
 		JFrame frame = new JFrame("HelloWorldSwing!");
 	    frame.setSize(new Dimension(370, 220));
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	   
+	    //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	    frame.setContentPane(createContainers());
 	    
 	    //frame.pack();
@@ -81,22 +81,22 @@ public class BasicGUI {
 		    		}
 		    	);
 		String[] sizes = {"tiny", "small", "medium", "large"};
-		final JComboBox spinner = new JComboBox(sizes);
+		final JComboBox<String> spinner = new JComboBox<String>(sizes);
 		spinner.addActionListener(
-	    		// This is an ANONYMOUS class
-	    		new ActionListener() {
-	    				@Override
-					public void actionPerformed(ActionEvent e) {
-	    					exampleLabel.setFont(exampleLabel.getFont().deriveFont(getFontSize((String)spinner.getSelectedItem())));
-					}
-	    		}
-	    	);
-		
+				// This is an ANONYMOUS class
+			new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							exampleLabel.setFont(exampleLabel.getFont().deriveFont(getFontSize((String)spinner.getSelectedItem())));
+						}
+				}
+			);
+
 		topRowPanel.add(textField);
 		topRowPanel.add(spinner);
 		return topRowPanel;
 	}
-	
+
 	static float getFontSize(String fontName)
 	{
 		if (fontName.equals("tiny"))
@@ -105,7 +105,7 @@ public class BasicGUI {
 			return 12;
 		else if (fontName.equals("medium"))
 			return 20;
-		else 
+		else
 			return 28;
 	}
 	
@@ -133,47 +133,47 @@ public class BasicGUI {
 		JRadioButton rb_plain = new JRadioButton("Plain");
 		rb_plain.setSelected(true);
 		rb_plain.addActionListener(
-	    		// This is an ANONYMOUS class
-	    		new ActionListener() {
-	    				@Override
+				// This is an ANONYMOUS class
+				new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
-	    					exampleLabel.setFont(exampleLabel.getFont().deriveFont(Font.PLAIN));
+						exampleLabel.setFont(exampleLabel.getFont().deriveFont(Font.PLAIN));
 					}
-	    		}
-	    	);
+			}
+		);
 		
 		JRadioButton rb_bold = new JRadioButton("Bold");
 		rb_bold.addActionListener(
-	    		// This is an ANONYMOUS class
-	    		new ActionListener() {
-	    				@Override
+			// This is an ANONYMOUS class
+			new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
-	    					exampleLabel.setFont(exampleLabel.getFont().deriveFont(Font.BOLD));
+						exampleLabel.setFont(exampleLabel.getFont().deriveFont(Font.BOLD));
 					}
-	    		}
-	    	);
+			}
+		);
 		
 		JRadioButton rb_italic = new JRadioButton("Italic");
 		rb_italic.addActionListener(
-	    		// This is an ANONYMOUS class
-	    		new ActionListener() {
-	    				@Override
+			// This is an ANONYMOUS class
+			new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
-	    					exampleLabel.setFont(exampleLabel.getFont().deriveFont(Font.ITALIC));
+						exampleLabel.setFont(exampleLabel.getFont().deriveFont(Font.ITALIC));
 					}
-	    		}
-	    	);
+			}
+		);
 		
 		JRadioButton rb_bold_italic = new JRadioButton("Bold Italic");
 		rb_bold_italic.addActionListener(
-	    		// This is an ANONYMOUS class
-	    		new ActionListener() {
-	    				@Override
+			// This is an ANONYMOUS class
+			new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
-	    					exampleLabel.setFont(exampleLabel.getFont().deriveFont(Font.BOLD | Font.ITALIC));
+						exampleLabel.setFont(exampleLabel.getFont().deriveFont(Font.BOLD | Font.ITALIC));
 					}
-	    		}
-	    	);
+			}
+		);
 		
 		 ButtonGroup group = new ButtonGroup();
 		 group.add(rb_plain);
@@ -195,64 +195,35 @@ public class BasicGUI {
 		
 		JButton btn_show = new JButton("Show!");
 		btn_show.addActionListener(
-	    		// This is an ANONYMOUS class
-	    		new ActionListener() {
-	    				@Override
+			// This is an ANONYMOUS class
+			new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
-	    					if (exampleLabel.getForeground().equals(Color.BLACK))
-	    						exampleLabel.setForeground(Color.RED);
-	    					else
-	    						exampleLabel.setForeground(Color.BLACK);
+						if (exampleLabel.getForeground().equals(Color.BLACK))
+							exampleLabel.setForeground(Color.RED);
+						else
+							exampleLabel.setForeground(Color.BLACK);
 					}
-	    		}
-	    	);
+			}
+		);
 		bottomRow.add(btn_show);
 		
 		final JButton btn_close = new JButton("Close");
 		btn_close.addActionListener(
-	    		// This is an ANONYMOUS class
-	    		new ActionListener() {
-	    				@Override
+			// This is an ANONYMOUS class
+			new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
-	    					Container frame = btn_close.getParent();
-	    		            do 
-	    		                frame = frame.getParent(); 
-	    		            while (!(frame instanceof JFrame));                                      
-	    		            ((JFrame) frame).dispose();
+						Container frame = btn_close.getParent();
+			            do 
+			                frame = frame.getParent(); 
+			            while (!(frame instanceof JFrame));                                      
+			            ((JFrame) frame).dispose();
 					}
-	    		}
-	    	);
+			}
+		);
 		bottomRow.add(btn_close);
 		
 		return bottomRow;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
