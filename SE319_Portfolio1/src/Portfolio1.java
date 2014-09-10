@@ -11,13 +11,13 @@ import java.util.Random;
  */
 public class Portfolio1
 {
-	public static JButton[] gameCards = new JButton[16];
+	public static GameCard[] gameCards = new GameCard[16];
 	public static Color[] colors = new Color[16];
 
 	public static void main(String[] args)
 	{
 
-		JFrame frame = new JFrame("HelloWorldSwing!");
+		JFrame frame = new JFrame("The awesomest memory game");
 		frame.setSize(new Dimension(600, 480));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -71,10 +71,7 @@ public class Portfolio1
 
 		for (int index = 0; index < gameCards.length; index++)
 		{
-			gameCards[index] = new JButton();
-			createCard(index, colors[index]);
-			gameCards[index].setSize(new Dimension(10, 10));
-			gameCards[index].setBackground(Color.blue);
+			gameCards[index] = createCard(index, colors[index]);
 			assignAction(gameCards[index], index);
 		}
 
@@ -191,12 +188,23 @@ public class Portfolio1
 	private static GameCard createCard(int index, Color color)
 	{
 		GameCard newCard = new GameCard(index, color);
+		newCard.setSize(new Dimension(10, 10));
+		newCard.setBackground(Color.blue);
 
 		return newCard;
 	}
 
 	private static void flipCard(int index)
 	{
-		gameCards[index].setBackground(colors[index]);
+		if (gameCards[index].state == GameCard.STATE_UNFLIPPED)
+		{
+			gameCards[index].setBackground(colors[index]);
+			gameCards[index].state = GameCard.STATE_FLIPPED;
+		}
+		else
+		{
+			gameCards[index].setBackground(Color.blue);
+			gameCards[index].state = GameCard.STATE_UNFLIPPED;
+		}
 	}
 }
