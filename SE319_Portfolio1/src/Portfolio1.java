@@ -211,6 +211,7 @@ public class Portfolio1
 		{
 			gameCards[index].setBackground(colors[index]);
 			gameCards[index].state = GameCard.STATE_FLIPPED;
+			gameCards[index].setEnabled(false);
 		}
 		else
 		{
@@ -238,11 +239,16 @@ public class Portfolio1
 		{
 			flippedCards.get(0).state = GameCard.STATE_MATCHED;
 			flippedCards.get(1).state = GameCard.STATE_MATCHED;
+
+			flippedCards.get(0).setEnabled(false);
+			flippedCards.get(1).setEnabled(false);
 		}
 		else
 		{
 			flipCard(flippedCards.get(0).cardIndex);
 			flipCard(flippedCards.get(1).cardIndex);
+			flippedCards.get(0).setEnabled(true);
+			flippedCards.get(1).setEnabled(true);
 		}
 
 		gameState = 1;
