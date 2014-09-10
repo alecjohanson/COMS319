@@ -6,12 +6,13 @@ import javax.swing.JButton;
  */
 public class GameCard extends JButton
 {
-	private int cardIndex;
-	private Color cardColor;
+	public int cardIndex;
+	public Color cardColor;
 
 	public int state; 
 	public static final int STATE_FLIPPED = 1;
 	public static final int STATE_UNFLIPPED = 2;
+	public static final int STATE_MATCHED = 3;
 
 	public GameCard(int index, Color color)
 	{

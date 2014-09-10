@@ -4,13 +4,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Created by Kyle on 9/9/2014.
  * Simple memory match game 4 x 4 grid. Just to show logic of panels and etc.
  */
+
+
+
 public class Portfolio1
 {
+	private static int gameState;
+	private static final int NO_CARDS_FLIPPED = 1;
+	private static final int ONE_CARD_FLIPPED = 2;
+	private static final int TWO_CARDS_FLIPPED = 3;
+
 	public static GameCard[] gameCards = new GameCard[16];
 	public static Color[] colors = new Color[16];
 
@@ -22,6 +31,7 @@ public class Portfolio1
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.setContentPane(createContainers());
+		gameState = NO_CARDS_FLIPPED;
 
 		//frame.pack();
 		frame.setVisible(true);
@@ -32,11 +42,11 @@ public class Portfolio1
 		JPanel mainPanel = createMainPanel();
 		JPanel gamePanel = createGamePanel();
 
-		JButton[] gameCards = createGameButtons();
+		GameCard[] gameCards = createGameButtons();
 
-		for (JButton button : gameCards)
+		for (GameCard card : gameCards)
 		{
-			gamePanel.add(button);
+			gamePanel.add(card);
 		}
 
 		mainPanel.add(gamePanel);
@@ -65,7 +75,7 @@ public class Portfolio1
 		return mainPanel;
 	}
 
-	private static JButton[] createGameButtons()
+	private static GameCard[] createGameButtons()
 	{
 		colors = generateGameColors(gameCards.length);
 
@@ -87,6 +97,7 @@ public class Portfolio1
 					public void actionPerformed(ActionEvent e)
 					{
 						flipCard(index);
+						checkMatch();
 					}
 				}
 		);
@@ -206,5 +217,34 @@ public class Portfolio1
 			gameCards[index].setBackground(Color.blue);
 			gameCards[index].state = GameCard.STATE_UNFLIPPED;
 		}
+
+		gameState++;
+	}
+
+	private static void checkMatch()
+	{
+		if (gameState != TWO_CARDS_FLIPPED) //Only need to check if two cards are flipped
+			return;
+
+		ArrayList<GameCard> flippedCards = new ArrayList<GameCard>();
+
+		for (GameCard card : gameCards)
+		{
+			if (card.state == GameCard.STATE_FLIPPED)
+				flippedCards.add(card);
+		}
+
+		if (flippedCards.get(0).cardColor == flippedCards.get(1).cardColor)
+		{
+			flippedCards.get(0).state = GameCard.STATE_MATCHED;
+			flippedCards.get(1).state = GameCard.STATE_MATCHED;
+		}
+		else
+		{
+			flipCard(flippedCards.get(0).cardIndex);
+			flipCard(flippedCards.get(1).cardIndex);
+		}
+
+		gameState = 1;
 	}
 }
